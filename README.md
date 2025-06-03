@@ -250,18 +250,6 @@ The frontend integrates with the Sociatrack backend API for:
 - **Toast Notifications** - Success/error feedback
 - **Accessibility** - WCAG compliant components
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 🆘 Troubleshooting
 
 ### Common Issues
@@ -295,16 +283,6 @@ For support and questions:
 - Check the documentation
 - Use demo mode for testing
 
-## 🔮 Roadmap
+## 📄 License
 
-- [ ] Real-time data streaming
-- [ ] Advanced filtering options
-- [ ] Export functionality (PDF, Excel)
-- [ ] Multi-language support
-- [ ] Advanced AI insights
-- [ ] Collaborative features
-- [ ] Mobile app version
-
----
-
-**Built with ❤️ by the Sociatrack Team**
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
