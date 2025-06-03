@@ -39,7 +39,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [auth, setAuth] = useState<Auth | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const initializeAuth = () => {
@@ -48,7 +48,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       const isOfflineMode = cookies.get("isOfflineMode") === "true";
 
       if (accessToken && refreshToken) {
-        setAuth({ accessToken, refreshToken, isOfflineMode });
+        setAuth({
+          accessToken,
+          refreshToken,
+          isOfflineMode: isOfflineMode || false,
+          user: isOfflineMode ? DUMMY_USER : null,
+          email: isOfflineMode ? DUMMY_USER.email : undefined,
+        });
       } else if (isOfflineMode) {
         setAuth({
           isOfflineMode: true,
@@ -65,6 +71,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   const login = async (email: string, password: string) => {
     try {
+      // Check for dummy credentials first
       if (
         email === DUMMY_CREDENTIALS.email &&
         password === DUMMY_CREDENTIALS.password
@@ -91,6 +98,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         };
       }
 
+      // Try normal API login
       const response = await axiosPublic.post(`${API}/account/auth/login`, {
         email,
         password,

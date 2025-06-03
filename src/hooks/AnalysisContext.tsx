@@ -1,5 +1,13 @@
-import { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 import { axiosPrivate, axiosPublic } from "@/axiosConfig";
+import { OfflineDataProvider } from "@/types/DummyData";
+import { useAuth } from "./AuthContext";
 
 import {
   CONTENT_OVERVIEW,
@@ -77,7 +85,8 @@ export const AnalysisProvider = ({ children }: AnalysisProviderProps) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [active, setActive] = useState<string>(CONTENT_OVERVIEW);
   const [selectedModel, setSelectedModel] = useState<string>("cnn-lstm");
-  const [selectedModelEmotion, setSelectedModelEmotion] = useState<string>("cnn-bilstm");
+  const [selectedModelEmotion, setSelectedModelEmotion] =
+    useState<string>("cnn-bilstm");
   const [selectedTopic, setSelectedTopic] = useState("all");
   const [filteredTopic, setFilteredTopic] = useState<Topic[]>([]);
 
@@ -101,12 +110,16 @@ export const AnalysisProvider = ({ children }: AnalysisProviderProps) => {
 
   // community
   const [community, setCommunity] = useState<Community | null>(null);
-  const [filteredCommunity, setFilteredCommunity] = useState<Community | null>(null);
+  const [filteredCommunity, setFilteredCommunity] = useState<Community | null>(
+    null
+  );
 
   // chatbot
   const [prompt, setPrompt] = useState<ChatbotPromptTopics | null>(null);
   const [messages, setMessages] = useState<ChatbotMessage[]>([]);
-  const [hasAnimated, setHasAnimated] = useState<{ [key: number]: boolean }>({});
+  const [hasAnimated, setHasAnimated] = useState<{ [key: number]: boolean }>(
+    {}
+  );
 
   const handleSetHasAnimated = (index: number) => {
     setHasAnimated((prevState) => ({
@@ -131,7 +144,13 @@ export const AnalysisProvider = ({ children }: AnalysisProviderProps) => {
 
   useEffect(() => {
     getData();
-  }, [selectedProject, active, selectedModel, selectedTopic, selectedModelEmotion]);
+  }, [
+    selectedProject,
+    active,
+    selectedModel,
+    selectedTopic,
+    selectedModelEmotion,
+  ]);
 
   const getData = async () => {
     if (selectedProject) {
@@ -163,32 +182,74 @@ export const AnalysisProvider = ({ children }: AnalysisProviderProps) => {
     }
   };
 
+  const { auth } = useAuth();
+
   const getProjects = async () => {
     try {
-      const response = await axiosPrivate.get(`${API}/project?name=&page=1&limit=100`);
+      if (auth?.isOfflineMode) {
+        setProjects(OfflineDataProvider.getProjects());
+        return;
+      }
+
+      const response = await axiosPrivate.get(
+        `${API}/project?name=&page=1&limit=100`
+      );
       setProjects(response.data.data.projects);
     } catch (error) {
-      console.error(error);
+      // Fallback to offline data if API fails
+      if (auth?.isOfflineMode) {
+        setProjects(OfflineDataProvider.getProjects());
+      } else {
+        console.error(error);
+      }
     }
   };
 
   const getOverview = async () => {
     try {
-      const response = await axiosPrivate.get(`${API}/project/${selectedProject?._id}`);
+      if (auth?.isOfflineMode && selectedProject) {
+        const project = OfflineDataProvider.getProjectById(selectedProject._id);
+        setOverview(project);
+        return;
+      }
+
+      const response = await axiosPrivate.get(
+        `${API}/project/${selectedProject?._id}`
+      );
       setOverview(response.data.data);
     } catch (error) {
-      console.error(error);
+      if (auth?.isOfflineMode && selectedProject) {
+        const project = OfflineDataProvider.getProjectById(selectedProject._id);
+        setOverview(project);
+      } else {
+        console.error(error);
+      }
     }
   };
 
   const getTopic = async () => {
     try {
+      if (auth?.isOfflineMode && selectedProject) {
+        const topics = OfflineDataProvider.getTopicsByProject(
+          selectedProject._id
+        );
+        setTopic(topics);
+        return;
+      }
+
       const response = await axiosPublic.get(
         `${API}/topic/topic-by-project/${selectedProject?._id}`
       );
       setTopic(response.data.data);
     } catch (error) {
-      console.error(error);
+      if (auth?.isOfflineMode && selectedProject) {
+        const topics = OfflineDataProvider.getTopicsByProject(
+          selectedProject._id
+        );
+        setTopic(topics);
+      } else {
+        console.error(error);
+      }
     }
   };
 
@@ -210,28 +271,58 @@ export const AnalysisProvider = ({ children }: AnalysisProviderProps) => {
 
   const getTweetTopic = async () => {
     try {
+      if (auth?.isOfflineMode && selectedProject) {
+        const tweets = OfflineDataProvider.getTweetsByProject(
+          selectedProject._id
+        );
+        setTweetsTopic(tweets);
+        return;
+      }
+
       let url = `${API}/topic/document-by-project/${selectedProject?._id}`;
 
-      if(selectedTopic != "all") {
+      if (selectedTopic != "all") {
         url += `?topic=${selectedTopic}`;
       }
 
       const response = await axiosPublic.get(url);
       setTweetsTopic(response.data.data);
     } catch (error) {
-      console.error(error);
+      if (auth?.isOfflineMode && selectedProject) {
+        const tweets = OfflineDataProvider.getTweetsByProject(
+          selectedProject._id
+        );
+        setTweetsTopic(tweets);
+      } else {
+        console.error(error);
+      }
     }
   };
 
   const getSentiment = async () => {
     try {
-      const response = await axiosPublic.get(`${API}/sentiment/visualize-sentiment`, {
-        params: {
-          project_id: selectedProject?._id,
-          topic: selectedTopic == "all" ? "" : selectedTopic,
-          model_type: selectedModel,
-        },
-      });
+      if (auth?.isOfflineMode && selectedProject) {
+        const sentiment = OfflineDataProvider.getSentimentByProject(
+          selectedProject._id
+        );
+        const sentimentTweets = OfflineDataProvider.getSentimentTweetsByProject(
+          selectedProject._id
+        );
+        setSentiment(sentiment);
+        setFilteredSentiment(sentimentTweets);
+        return;
+      }
+
+      const response = await axiosPublic.get(
+        `${API}/sentiment/visualize-sentiment`,
+        {
+          params: {
+            project_id: selectedProject?._id,
+            topic: selectedTopic == "all" ? "" : selectedTopic,
+            model_type: selectedModel,
+          },
+        }
+      );
 
       const responseData: Sentiment = response.data as Sentiment;
       setSentiment(responseData);
@@ -249,19 +340,45 @@ export const AnalysisProvider = ({ children }: AnalysisProviderProps) => {
 
       setFilteredSentiment(filteredByTopic);
     } catch (error) {
-      console.error(error);
+      if (auth?.isOfflineMode && selectedProject) {
+        const sentiment = OfflineDataProvider.getSentimentByProject(
+          selectedProject._id
+        );
+        const sentimentTweets = OfflineDataProvider.getSentimentTweetsByProject(
+          selectedProject._id
+        );
+        setSentiment(sentiment);
+        setFilteredSentiment(sentimentTweets);
+      } else {
+        console.error(error);
+      }
     }
   };
 
   const getEmotion = async () => {
     try {
-      const response = await axiosPublic.get(`${API}/sentiment/visualize-emotion`, {
-        params: {
-          project_id: selectedProject?._id,
-          topic: selectedTopic == "all" ? "" : selectedTopic,
-          model_type: selectedModelEmotion,
-        },
-      });
+      if (auth?.isOfflineMode && selectedProject) {
+        const emotion = OfflineDataProvider.getEmotionByProject(
+          selectedProject._id
+        );
+        const emotionTweets = OfflineDataProvider.getEmotionTweetsByProject(
+          selectedProject._id
+        );
+        setEmotion(emotion);
+        setFilteredEmotion(emotionTweets);
+        return;
+      }
+
+      const response = await axiosPublic.get(
+        `${API}/sentiment/visualize-emotion`,
+        {
+          params: {
+            project_id: selectedProject?._id,
+            topic: selectedTopic == "all" ? "" : selectedTopic,
+            model_type: selectedModelEmotion,
+          },
+        }
+      );
 
       const responseData: Emotion = response.data as Emotion;
       setEmotion(responseData);
@@ -269,7 +386,8 @@ export const AnalysisProvider = ({ children }: AnalysisProviderProps) => {
       const filteredByModel = responseData.emotion.filter(
         (item) =>
           (selectedModelEmotion === "cnn" && item.predicted_emotions_cnn) ||
-          (selectedModelEmotion === "cnn-bilstm" && item.predicted_emotions_bilstm)
+          (selectedModelEmotion === "cnn-bilstm" &&
+            item.predicted_emotions_bilstm)
       );
 
       const filteredByTopic =
@@ -279,23 +397,57 @@ export const AnalysisProvider = ({ children }: AnalysisProviderProps) => {
 
       setFilteredEmotion(filteredByTopic);
     } catch (error) {
-      console.error(error);
+      if (auth?.isOfflineMode && selectedProject) {
+        const emotion = OfflineDataProvider.getEmotionByProject(
+          selectedProject._id
+        );
+        const emotionTweets = OfflineDataProvider.getEmotionTweetsByProject(
+          selectedProject._id
+        );
+        setEmotion(emotion);
+        setFilteredEmotion(emotionTweets);
+      } else {
+        console.error(error);
+      }
     }
   };
 
   const getBuzzer = async () => {
     try {
+      if (auth?.isOfflineMode && selectedProject) {
+        const buzzers = OfflineDataProvider.getBuzzersByProject(
+          selectedProject._id
+        );
+        setBuzzer(buzzers);
+        return;
+      }
+
       const response = await axiosPublic.get(
         `${API}/sna/get-buzzer-by-project-id/${selectedProject?._id}`
       );
       setBuzzer(response.data.data);
     } catch (error) {
-      console.error(error);
+      if (auth?.isOfflineMode && selectedProject) {
+        const buzzers = OfflineDataProvider.getBuzzersByProject(
+          selectedProject._id
+        );
+        setBuzzer(buzzers);
+      } else {
+        console.error(error);
+      }
     }
   };
 
   const getCommunity = async () => {
     try {
+      if (auth?.isOfflineMode && selectedProject) {
+        const community = OfflineDataProvider.getCommunityByProject(
+          selectedProject._id
+        );
+        setCommunity(community);
+        return;
+      }
+
       const response = await axiosPublic.get(
         `${API}/sna/get-community-by-project-id/${selectedProject?._id}`
       );
@@ -304,12 +456,27 @@ export const AnalysisProvider = ({ children }: AnalysisProviderProps) => {
       setCommunity(data);
       setFilteredCommunity(data);
     } catch (error) {
-      console.error(error);
+      if (auth?.isOfflineMode && selectedProject) {
+        const community = OfflineDataProvider.getCommunityByProject(
+          selectedProject._id
+        );
+        setCommunity(community);
+      } else {
+        console.error(error);
+      }
     }
   };
 
   const getPrompt = async () => {
     try {
+      if (auth?.isOfflineMode && selectedProject) {
+        const prompts = OfflineDataProvider.getChatbotPromptsByProject(
+          selectedProject._id
+        );
+        setPrompt(prompts);
+        return;
+      }
+
       const response = await axiosPublic.get(
         `${API}/chatbot/prompt?project_id=${selectedProject?._id}`
       );
@@ -317,21 +484,42 @@ export const AnalysisProvider = ({ children }: AnalysisProviderProps) => {
       const data = response.data.data.prompt;
       setPrompt(data);
     } catch (error) {
-      console.error(error);
+      if (auth?.isOfflineMode && selectedProject) {
+        const prompts = OfflineDataProvider.getChatbotPromptsByProject(
+          selectedProject._id
+        );
+        setPrompt(prompts);
+      } else {
+        console.error(error);
+      }
     }
   };
 
   const sendChat = async (question: string, messages: ChatbotMessage[]) => {
     try {
-      setMessages([...messages, { text: "Loading", isUser: false, isLoading: true }]);
+      if (auth?.isOfflineMode) {
+        const response = OfflineDataProvider.getChatbotResponse(question);
+        setMessages([
+          ...messages,
+          { text: "", isUser: false, isLoading: true },
+        ]);
 
-      const response = await axiosPublic.post(
-        `${API}/chatbot/chat`,
-        {
-          query: question,
-          project_id: selectedProject?._id,
-        }
-      );
+        // Simulate loading delay
+        setTimeout(() => {
+          setMessages([...messages, response]);
+        }, 2000);
+        return;
+      }
+
+      setMessages([
+        ...messages,
+        { text: "Loading", isUser: false, isLoading: true },
+      ]);
+
+      const response = await axiosPublic.post(`${API}/chatbot/chat`, {
+        query: question,
+        project_id: selectedProject?._id,
+      });
 
       const newMessages = messages.filter((message) => !message.isLoading);
       setMessages(newMessages);
@@ -348,7 +536,12 @@ export const AnalysisProvider = ({ children }: AnalysisProviderProps) => {
         },
       ]);
     } catch (error) {
-      console.error(error);
+      if (auth?.isOfflineMode) {
+        const response = OfflineDataProvider.getChatbotResponse(question);
+        setMessages([...messages, response]);
+      } else {
+        console.error(error);
+      }
     }
   };
 

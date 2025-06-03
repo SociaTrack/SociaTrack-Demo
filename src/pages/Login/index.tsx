@@ -103,13 +103,17 @@ const Login = () => {
                 <p className="text-gray-500">Please login to your account</p>
                 <div className="p-3 bg-red-50 border border-red-200 rounded-md">
                   <p className="text-sm text-red-800 font-semibold">
-                    Demo Credentials (Offline Mode):
+                    🔹 Demo Credentials (Offline Mode):
                   </p>
                   <p className="text-sm text-red-600">
-                    Email: {DUMMY_CREDENTIALS.email}
+                    📧 Email: {DUMMY_CREDENTIALS.email}
                   </p>
                   <p className="text-sm text-red-600">
-                    Password: {DUMMY_CREDENTIALS.password}
+                    🔑 Password: {DUMMY_CREDENTIALS.password}
+                  </p>
+                  <p className="text-xs text-red-500 mt-1">
+                    Use these credentials to access sample data without internet
+                    connection
                   </p>
                 </div>
               </div>
