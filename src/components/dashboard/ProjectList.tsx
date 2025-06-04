@@ -9,26 +9,48 @@ import { axiosPrivate } from "@/axiosConfig";
 import { useAnalysis } from "@/hooks/AnalysisContext";
 import { API } from "@/lib/urls";
 import Project from "@/types/Project";
+import { useAuth } from "@/hooks/AuthContext";
+import { OfflineDataProvider } from "@/types/DummyData";
 
 const ProjectList = () => {
   const { getProjects } = useAnalysis();
+  const { auth } = useAuth();
   const [projectList, setProjectList] = useState<Project[]>([]);
 
   const getProjectList = async () => {
     try {
+      // Handle offline mode
+      if (auth?.isOfflineMode) {
+        const projects = OfflineDataProvider.getProjects();
+        setProjectList(projects);
+        return;
+      }
+
       const response = await axiosPrivate.get(
         `${API}/project?name=&page=1&limit=50`
       );
       setProjectList(response.data.data.projects);
     } catch (error) {
-      console.error(error);
+      // Fallback to offline data if API fails
+      if (auth?.isOfflineMode) {
+        const projects = OfflineDataProvider.getProjects();
+        setProjectList(projects);
+      } else {
+        console.error(error);
+      }
     }
   };
 
   useEffect(() => {
     getProjectList();
     getProjects();
-  }, []);
+  }, [auth?.isOfflineMode]);
+
+  // Add a refresh function that can be called from child components
+  const refreshProjectList = () => {
+    getProjectList();
+    getProjects();
+  };
 
   return (
     <div className="w-[1170px] p-6 bg-white rounded-lg shadow flex-col justify-start items-start gap-6 inline-flex">

@@ -13,7 +13,7 @@ export const columns: ColumnDef<Project>[] = [
     cell: ({ row }) => {
       const topic = row.original.title;
       return (
-        <div className="text-base text-foreground font-semibold">{topic}</div>
+        <div className="text-sm text-foreground font-semibold">{topic}</div>
       );
     },
   },
@@ -28,7 +28,7 @@ export const columns: ColumnDef<Project>[] = [
         ? format(row.original.end_date_crawl, "dd MMMM yyyy")
         : "";
       return (
-        <div className="text-base text-foreground">
+        <div className="text-sm text-foreground">
           {start_date_crawl} - {end_date_crawl}
         </div>
       );
@@ -40,9 +40,7 @@ export const columns: ColumnDef<Project>[] = [
     cell: ({ row }) => {
       const keyword = row.original.keyword;
       return (
-        <div className="text-base text-foreground font-semibold">
-          "{keyword}"
-        </div>
+        <div className="text-sm text-foreground font-semibold">"{keyword}"</div>
       );
     },
   },
@@ -52,7 +50,7 @@ export const columns: ColumnDef<Project>[] = [
     cell: ({ row }) => {
       const country = row.original.language == "en" ? "English" : "Indonesia";
       return (
-        <div className="text-base text-foreground font-semibold">{country}</div>
+        <div className="text-sm text-foreground font-semibold">{country}</div>
       );
     },
   },
@@ -63,7 +61,7 @@ export const columns: ColumnDef<Project>[] = [
     cell: ({ row }) => {
       const id = row.original._id;
       return (
-        <Button size="sm" className="text-sm">
+        <Button size="sm" className="text-xs whitespace-nowrap">
           <Link to={`/analysis?id=${id}`}>See Analysis</Link>
         </Button>
       );

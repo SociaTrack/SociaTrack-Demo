@@ -83,13 +83,16 @@ const Emotion = () => {
       <div className="self-stretch bg-white rounded-lg border border-zinc-100 flex-col justify-start items-start flex">
         <div className="self-stretch mb-6 px-6 py-5 flex-col justify-start items-start gap-2 flex">
           <div className="flex w-full items-center gap-2">
-            <Header label="Emotion of Keyword" keyword={selectedProject?.keyword ?? ""} />
+            <Header
+              label="Emotion of Keyword"
+              keyword={selectedProject?.keyword ?? ""}
+            />
           </div>
           <div className="flex w-full justify-end items-center gap-2">
             {/* <SelectModel isSentiment={false} /> */}
             <SelectTopic />
           </div>
-          <div className="self-stretch p-4 mt-7 rounded-md border border-[#f2f2f2] justify-center gap-4 inline-flex">
+          <div className="self-stretch p-4 rounded-md border border-[#f2f2f2] justify-center gap-4 inline-flex">
             <TableTopicAnalysis topics={filteredTopic} />
           </div>
           {selectedModelEmotion == "" ? (
@@ -102,7 +105,10 @@ const Emotion = () => {
                 {emotion ? (
                   <>
                     <InfoCard type="totalTweet" value={emotion.total_data} />
-                    <InfoCard type="category" value={selectedProject.topic_category} />
+                    <InfoCard
+                      type="category"
+                      value={selectedProject.topic_category}
+                    />
                   </>
                 ) : (
                   <>
@@ -114,7 +120,10 @@ const Emotion = () => {
               <div className="self-stretch justify-center items-center gap-10 inline-flex">
                 <div className="w-full h-[363px] relative">
                   {emotion ? (
-                    <BarEmotion emotion={emotion} selectedTopic={selectedTopic} />
+                    <BarEmotion
+                      emotion={emotion}
+                      selectedTopic={selectedTopic}
+                    />
                   ) : (
                     <Skeleton className="h-52 w-full" />
                   )}
@@ -143,7 +152,9 @@ const Emotion = () => {
                     <LoadMoreTweetEmotion
                       items={fearEmotions}
                       itemsPerPage={10}
-                      selectedModel={selectedModelEmotion as "cnn" | "cnn-bilstm"}
+                      selectedModel={
+                        selectedModelEmotion as "cnn" | "cnn-bilstm"
+                      }
                       modelKey="emotions"
                     />
                   </div>
@@ -157,7 +168,9 @@ const Emotion = () => {
                     <LoadMoreTweetEmotion
                       items={sadEmotions}
                       itemsPerPage={10}
-                      selectedModel={selectedModelEmotion as "cnn" | "cnn-bilstm"}
+                      selectedModel={
+                        selectedModelEmotion as "cnn" | "cnn-bilstm"
+                      }
                       modelKey="emotions"
                     />
                   </div>
@@ -171,7 +184,9 @@ const Emotion = () => {
                     <LoadMoreTweetEmotion
                       items={loveEmotions}
                       itemsPerPage={10}
-                      selectedModel={selectedModelEmotion as "cnn" | "cnn-bilstm"}
+                      selectedModel={
+                        selectedModelEmotion as "cnn" | "cnn-bilstm"
+                      }
                       modelKey="emotions"
                     />
                   </div>
@@ -185,7 +200,9 @@ const Emotion = () => {
                     <LoadMoreTweetEmotion
                       items={joyEmotions}
                       itemsPerPage={10}
-                      selectedModel={selectedModelEmotion as "cnn" | "cnn-bilstm"}
+                      selectedModel={
+                        selectedModelEmotion as "cnn" | "cnn-bilstm"
+                      }
                       modelKey="emotions"
                     />
                   </div>
@@ -199,7 +216,9 @@ const Emotion = () => {
                     <LoadMoreTweetEmotion
                       items={angerEmotions}
                       itemsPerPage={10}
-                      selectedModel={selectedModelEmotion as "cnn" | "cnn-bilstm"}
+                      selectedModel={
+                        selectedModelEmotion as "cnn" | "cnn-bilstm"
+                      }
                       modelKey="emotions"
                     />
                   </div>
@@ -213,7 +232,9 @@ const Emotion = () => {
                     <LoadMoreTweetEmotion
                       items={neutralEmotions}
                       itemsPerPage={10}
-                      selectedModel={selectedModelEmotion as "cnn" | "cnn-bilstm"}
+                      selectedModel={
+                        selectedModelEmotion as "cnn" | "cnn-bilstm"
+                      }
                       modelKey="emotions"
                     />
                   </div>

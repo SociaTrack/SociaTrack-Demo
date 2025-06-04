@@ -11,15 +11,15 @@ import DetailOfTopic from "./CreateTopic/DetailOfTopic";
 import Register from "./Register";
 
 export {
-    Dashboard,
-    Login,
-    NoPage,
-    Trending,
-    PrivateRoute,
-    Service,
-    Analyst,
-    NewProject,
-    KeywordCrawling,
-    DetailOfTopic,
-    Register
+  Dashboard,
+  Login,
+  NoPage,
+  Trending,
+  PrivateRoute,
+  Service,
+  Analyst,
+  NewProject,
+  KeywordCrawling,
+  DetailOfTopic,
+  Register,
 };

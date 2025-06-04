@@ -27,6 +27,12 @@ const ChatBot = () => {
   const [activePromptTopic, setActivePromptTopic] = useState(null);
   const [question, setQuestion] = useState("");
 
+  // Debug logging
+  useEffect(() => {
+    console.log("Prompt data:", prompt);
+    console.log("Selected project:", selectedProject);
+  }, [prompt, selectedProject]);
+
   const handleTriggerClick = (topic: any) => {
     setActivePromptTopic(activePromptTopic === topic ? null : topic);
   };
@@ -35,7 +41,10 @@ const ChatBot = () => {
     e.preventDefault();
     if (question.trim() === "") return;
 
-    sendChat(question, [...messages, { text: question, isUser: true, isLoading: false }]);
+    sendChat(question, [
+      ...messages,
+      { text: question, isUser: true, isLoading: false },
+    ]);
     setQuestion("");
   };
 
@@ -93,69 +102,89 @@ const ChatBot = () => {
         </div>
       ) : (
         <div className="flex-1 flex items-center justify-center mb-5 w-full">
-          <div className="grid grid-cols-1 gap-2 w-full ">
-            {prompt != null ? (
-              Object.keys(prompt).map((topicKey, index) => (
-                <Collapsible
-                  key={topicKey}
-                  open={activePromptTopic === topicKey}
-                  className="border border-gray-200 rounded-xl"
-                >
-                  <div className="grid items-center">
-                    <CollapsibleTrigger asChild className="px-3 py-8">
-                      <Button
-                        className={`text-foreground font-bold hover:text-primary-foreground hover:bg-secondary w-full rounded-xl
-                ${activePromptTopic === topicKey ? "bg-secondary text-primary-foreground" : "bg-white"}`}
-                        onClick={() => handleTriggerClick(topicKey)}
-                      >
-                        <span className="w-8 h-8 border border-gray-300 rounded-md flex items-center justify-center mr-3">
-                          {index + 1}
-                        </span>
-                        Prompt Topic {index + 1}
-                        <span className="ml-auto">
-                          {activePromptTopic === topicKey ? (
-                            <ChevronDown />
-                          ) : (
-                            <ChevronRight />
-                          )}
-                        </span>
-                      </Button>
-                    </CollapsibleTrigger>
-                  </div>
-                  <CollapsibleContent>
-                    <div className="grid gap-2 mt-2">
-                      {Object.keys(prompt[topicKey]).map((questionKey) => (
-                        <QuestionCard
-                          key={questionKey}
-                          prompt={prompt[topicKey][questionKey]}
-                          onClick={() => {
-                            const question = prompt[topicKey][questionKey];
-                            sendChat(question.optimal_prompt, [
-                              ...messages,
-                              {
-                                text: question.optimal_prompt,
-                                isUser: true,
-                                isLoading: false,
-                              },
-                            ]);
-                          }}
-                        />
-                      ))}
+          <div className="grid grid-cols-1 gap-2 w-full">
+            {prompt != null && Object.keys(prompt).length > 0 ? (
+              Object.keys(prompt).map((topicKey, index) => {
+                const topicQuestions = prompt[topicKey];
+                const hasQuestions =
+                  topicQuestions && Object.keys(topicQuestions).length > 0;
+
+                return (
+                  <Collapsible
+                    key={topicKey}
+                    open={activePromptTopic === topicKey}
+                    className="border border-gray-200 rounded-xl"
+                  >
+                    <div className="grid items-center">
+                      <CollapsibleTrigger asChild className="px-3 py-8">
+                        <Button
+                          className={`text-foreground font-bold hover:text-primary-foreground hover:bg-secondary w-full rounded-xl
+                    ${activePromptTopic === topicKey ? "bg-secondary text-primary-foreground" : "bg-white"}`}
+                          onClick={() => handleTriggerClick(topicKey)}
+                        >
+                          <span className="w-8 h-8 border border-gray-300 rounded-md flex items-center justify-center mr-3">
+                            {index + 1}
+                          </span>
+                          {topicKey}
+                          <span className="ml-auto">
+                            {activePromptTopic === topicKey ? (
+                              <ChevronDown />
+                            ) : (
+                              <ChevronRight />
+                            )}
+                          </span>
+                        </Button>
+                      </CollapsibleTrigger>
                     </div>
-                  </CollapsibleContent>
-                </Collapsible>
-              ))
+                    <CollapsibleContent className="px-3 pb-3">
+                      <div className="grid gap-2 mt-2">
+                        {hasQuestions ? (
+                          Object.keys(topicQuestions).map((questionKey) => (
+                            <QuestionCard
+                              key={questionKey}
+                              prompt={topicQuestions[questionKey]}
+                              onClick={() => {
+                                const question = topicQuestions[questionKey];
+                                sendChat(question.optimal_prompt, [
+                                  ...messages,
+                                  {
+                                    text: question.optimal_prompt,
+                                    isUser: true,
+                                    isLoading: false,
+                                  },
+                                ]);
+                              }}
+                            />
+                          ))
+                        ) : (
+                          <div className="text-gray-500 p-4">
+                            No questions available for this topic.
+                          </div>
+                        )}
+                      </div>
+                    </CollapsibleContent>
+                  </Collapsible>
+                );
+              })
             ) : (
               <>
                 <Skeleton className="h-14 w-full" />
                 <Skeleton className="h-14 w-full" />
+                <div className="text-center text-gray-500 mt-4">
+                  {selectedProject
+                    ? "Loading prompts..."
+                    : "Please select a project"}
+                </div>
               </>
             )}
           </div>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="flex w-full items-center space-x-2">
+      <form
+        onSubmit={handleSubmit}
+        className="flex w-full items-center space-x-2"
+      >
         <Input
           type="text"
           placeholder="Type question here..."

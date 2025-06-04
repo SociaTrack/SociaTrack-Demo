@@ -81,7 +81,7 @@ const AnalysisContext = createContext<
 >(undefined);
 
 export const AnalysisProvider = ({ children }: AnalysisProviderProps) => {
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [active, setActive] = useState<string>(CONTENT_OVERVIEW);
   const [selectedModel, setSelectedModel] = useState<string>("cnn-lstm");

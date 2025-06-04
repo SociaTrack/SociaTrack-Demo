@@ -2,6 +2,8 @@ import { axiosPrivate } from "@/axiosConfig";
 import { createContext, useContext, useState, ReactNode } from "react";
 import { format } from "date-fns";
 import { API } from "@/lib/urls";
+import { useAuth } from "@/hooks/AuthContext";
+import { OfflineDataProvider } from "@/types/DummyData";
 
 type FormProviderProps = {
   children: ReactNode;
@@ -48,6 +50,8 @@ export const FormProvider = ({ children }: FormProviderProps) => {
     projectCategory: "",
   });
 
+  const { auth } = useAuth();
+
   const updateFormState = (name: string, value: any) => {
     setFormState((prevState) => ({
       ...prevState,
@@ -57,12 +61,37 @@ export const FormProvider = ({ children }: FormProviderProps) => {
 
   const createProject = async () => {
     try {
+      // Handle offline mode
+      if (auth?.isOfflineMode) {
+        const newProject = OfflineDataProvider.createProject({
+          title: formState.projectTitle,
+          description: formState.projectDescription,
+          category: formState.projectCategory,
+          keyword: formState.keywordCrawling,
+          language: formState.country,
+          start_date_crawl: formState.rangeTweet.from
+            ? format(formState.rangeTweet.from, "yyyy-MM-dd")
+            : "",
+          end_date_crawl: formState.rangeTweet.to
+            ? format(formState.rangeTweet.to, "yyyy-MM-dd")
+            : "",
+        });
+
+        return {
+          status: 201,
+          data: {
+            message: "Project created successfully (Offline Mode)",
+            data: newProject,
+          },
+        };
+      }
+
+      // Online API call
       const response = await axiosPrivate.post(`${API}/project`, {
         title: formState.projectTitle,
         description: formState.projectDescription,
         category: formState.projectCategory,
         keyword: formState.keywordCrawling,
-        // tweetToken: formState.tweetToken,
         language: formState.country,
         start_date_crawl: formState.rangeTweet.from
           ? format(formState.rangeTweet.from, "yyyy-MM-dd")
@@ -73,17 +102,65 @@ export const FormProvider = ({ children }: FormProviderProps) => {
       });
       return response;
     } catch (error) {
+      // Fallback to offline mode if API fails
+      if (auth?.isOfflineMode) {
+        const newProject = OfflineDataProvider.createProject({
+          title: formState.projectTitle,
+          description: formState.projectDescription,
+          category: formState.projectCategory,
+          keyword: formState.keywordCrawling,
+          language: formState.country,
+          start_date_crawl: formState.rangeTweet.from
+            ? format(formState.rangeTweet.from, "yyyy-MM-dd")
+            : "",
+          end_date_crawl: formState.rangeTweet.to
+            ? format(formState.rangeTweet.to, "yyyy-MM-dd")
+            : "",
+        });
+
+        return {
+          status: 201,
+          data: {
+            message:
+              "Project created successfully (Offline Mode - No Internet)",
+            data: newProject,
+          },
+        };
+      }
       console.error("Create project failed", error);
+      throw error;
     }
   };
 
   const getProjectById = async (id: string) => {
     try {
+      // Handle offline mode
+      if (auth?.isOfflineMode) {
+        const project = OfflineDataProvider.getProjectById(id);
+        return {
+          status: 200,
+          data: {
+            data: project,
+          },
+        };
+      }
+
       const response = await axiosPrivate.get(`${API}/project/${id}`);
       console.log(response);
       return response;
     } catch (error) {
+      // Fallback to offline mode
+      if (auth?.isOfflineMode) {
+        const project = OfflineDataProvider.getProjectById(id);
+        return {
+          status: 200,
+          data: {
+            data: project,
+          },
+        };
+      }
       console.error("Get project by id failed", error);
+      throw error;
     }
   };
 

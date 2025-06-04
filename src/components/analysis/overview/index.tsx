@@ -16,7 +16,7 @@ const Overview = () => {
   }
 
   return (
-    <section className="flex-grow min-h-screen p-6 bg-white rounded-lg shadow flex-col justify-start items-start gap-3 inline-flex">
+    <section className="flex-grow min-h-fit p-6 bg-white rounded-lg shadow flex-col justify-start items-start gap-3 inline-flex">
       <div className="self-stretch h-px bg-[#eeeeee]" />
       {overview ? (
         <ProjectDescription

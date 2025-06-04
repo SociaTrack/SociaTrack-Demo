@@ -1,7 +1,15 @@
 import React, { Dispatch, SetStateAction } from "react";
 import SidebarHeader from "./sidebar-header";
 import SidebarSection from "./sidebar-section";
-import { TrendingUp, User, Smile, MessageCircle, Share2, Users, Bot } from "lucide-react";
+import {
+  TrendingUp,
+  User,
+  Smile,
+  MessageCircle,
+  Share2,
+  Users,
+  Bot,
+} from "lucide-react";
 import {
   CONTENT_OVERVIEW,
   CONTENT_TREN_OF_TWEET,
@@ -23,7 +31,7 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <aside className="w-[329px] h-[882px] px-[25px] py-6 bg-white rounded-lg flex-col justify-between items-start inline-flex sticky top-24">
+    <aside className="w-[300px] h-fit p-6 bg-white rounded-lg flex-col justify-between items-start inline-flex sticky top-24 gap-6">
       <SidebarHeader
         projects={projects}
         selectedProject={selectedProject?._id ?? ""}
@@ -41,7 +49,7 @@ const Sidebar: React.FC = () => {
           },
         ]}
       />
-      <div className="self-stretch  border border-gray-200"></div>
+      <div className="self-stretch border border-gray-200"></div>
       <SidebarSection
         items={[
           {
@@ -64,7 +72,7 @@ const Sidebar: React.FC = () => {
           },
         ]}
       />
-      <div className="self-stretch  border border-gray-200"></div>
+      <div className="self-stretch border border-gray-200"></div>
       <SidebarSection
         title="Social Network Analysis"
         items={[
@@ -82,7 +90,7 @@ const Sidebar: React.FC = () => {
           },
         ]}
       />
-      <div className="self-stretch  border border-gray-200"></div>
+      <div className="self-stretch border border-gray-200"></div>
       <SidebarSection
         items={[
           {

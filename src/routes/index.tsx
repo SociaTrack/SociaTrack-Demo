@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import PrivateRoute from "./utils/PrivateRoute";
+import UnprotectedRoute from "./utils/UnprotectedRoute";
 
 import {
   Dashboard,
@@ -28,11 +29,11 @@ function BaseRoute() {
         />
       </Route>
       <Route path="/analysis" element={<Analyst />} />
-      {/* </Route> */}
-      {/* <Route element={<UnprotectedRoute />}> */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      {/* </Route> */}
+
+      <Route element={<UnprotectedRoute />}>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Route>
 
       <Route path="*" element={<NoPage />} />
     </Routes>

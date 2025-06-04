@@ -21,7 +21,7 @@ const SidebarHeader: React.FC<SidebarHeaderProps> = ({
 }) => {
   return (
     <Select value={selectedProject} onValueChange={onProjectChange}>
-      <SelectTrigger className="text-red-700 text-base font-bold leading-tight">
+      <SelectTrigger className="text-red-700 text-sm font-bold leading-tight">
         <SelectValue placeholder="Select Project" />
       </SelectTrigger>
       <SelectContent className="">

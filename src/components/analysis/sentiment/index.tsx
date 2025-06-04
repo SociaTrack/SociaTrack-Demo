@@ -20,8 +20,12 @@ const Sentiment = () => {
     selectedTopic,
     filteredTopic,
   } = useAnalysis();
-  const [positiveSentiments, setPositiveSentiments] = useState<TSentiment[]>([]);
-  const [negativeSentiments, setNegativeSentiments] = useState<TSentiment[]>([]);
+  const [positiveSentiments, setPositiveSentiments] = useState<TSentiment[]>(
+    []
+  );
+  const [negativeSentiments, setNegativeSentiments] = useState<TSentiment[]>(
+    []
+  );
 
   useEffect(() => {
     const positiveSentiments = filteredSentiment.filter((item) =>
@@ -60,7 +64,7 @@ const Sentiment = () => {
             {/* <SelectModel /> */}
             <SelectTopic />
           </div>
-          <div className="self-stretch p-4 mt-7 rounded-md border border-[#f2f2f2] justify-center gap-4 inline-flex">
+          <div className="self-stretch p-4 rounded-md border border-[#f2f2f2] justify-center gap-4 inline-flex">
             <TableTopicAnalysis topics={filteredTopic} />
           </div>
           {selectedModel == "" ? (
@@ -73,7 +77,10 @@ const Sentiment = () => {
                 {sentiment ? (
                   <>
                     <InfoCard type="totalTweet" value={sentiment.total_data} />
-                    <InfoCard type="category" value={selectedProject.topic_category} />
+                    <InfoCard
+                      type="category"
+                      value={selectedProject.topic_category}
+                    />
                   </>
                 ) : (
                   <>
@@ -85,7 +92,10 @@ const Sentiment = () => {
               <div className="self-stretch justify-center items-center gap-10 inline-flex">
                 <div className="w-[555px] relative">
                   {sentiment ? (
-                    <SentimentPie sentiment={sentiment} selectedTopic={selectedTopic} />
+                    <SentimentPie
+                      sentiment={sentiment}
+                      selectedTopic={selectedTopic}
+                    />
                   ) : (
                     <Skeleton className="h-52 w-full" />
                   )}

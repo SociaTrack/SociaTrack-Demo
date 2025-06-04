@@ -10,12 +10,12 @@ import { ChatbotPromptTopics, ChatbotMessage } from "./Chatbot";
 export const DUMMY_PROJECTS: Project[] = [
   {
     _id: "dummy-project-001",
-    title: "Social Entrepreneurship in Indonesia 2024",
+    title: "Social Entrepreneurship in Indonesia 2025",
     description:
       "Analysis of social entrepreneurship discussions, impact investing trends, and social innovation initiatives across Indonesian social media platforms.",
     topic_category: "social entrepreneurship",
-    start_date_crawl: "2024-01-01",
-    end_date_crawl: "2024-01-31",
+    start_date_crawl: "2025-01-01",
+    end_date_crawl: "2025-01-31",
     keyword: "social entrepreneurship",
     language: "en",
   },
@@ -25,8 +25,8 @@ export const DUMMY_PROJECTS: Project[] = [
     description:
       "Comprehensive analysis of CSR initiatives, sustainable business practices, and corporate impact discussions in the business community.",
     topic_category: "corporate social responsibility",
-    start_date_crawl: "2024-02-01",
-    end_date_crawl: "2024-02-29",
+    start_date_crawl: "2025-02-01",
+    end_date_crawl: "2025-02-29",
     keyword: "corporate social",
     language: "en",
   },
@@ -36,8 +36,8 @@ export const DUMMY_PROJECTS: Project[] = [
     description:
       "Public discourse analysis on SDG implementation, social impact measurement, and sustainable business model adoption in emerging markets.",
     topic_category: "sustainable development",
-    start_date_crawl: "2024-03-01",
-    end_date_crawl: "2024-03-31",
+    start_date_crawl: "2025-03-01",
+    end_date_crawl: "2025-03-31",
     keyword: "sustainable development",
     language: "en",
   },
@@ -173,6 +173,7 @@ export const DUMMY_SENTIMENT: Sentiment = {
   negative_percentage_cnn: 33.3,
   positive_percentage_cnn_lstm: 70.0,
   negative_percentage_cnn_lstm: 30.0,
+  sentiment: [], // Add missing sentiment array property
 };
 
 export const DUMMY_SENTIMENT_TWEETS: TSentiment[] = [
@@ -250,6 +251,7 @@ export const DUMMY_EMOTION: Emotion = {
   joy_percentage_bilstm: 38.0,
   anger_percentage_bilstm: 9.0,
   neutral_percentage_bilstm: 6.4,
+  emotion: [], // Add missing emotion array property
 };
 
 export const DUMMY_EMOTION_TWEETS: TEmotion[] = [
@@ -466,7 +468,7 @@ export const DUMMY_COMMUNITY: Community = {
 
 // Dummy Chatbot Prompts - Social Business Context
 export const DUMMY_CHATBOT_PROMPTS: ChatbotPromptTopics = {
-  topic1: {
+  "Topic 1": {
     question1: {
       prompt_pertanyaan: "What are the main trends in social entrepreneurship?",
       optimal_prompt:
@@ -485,7 +487,7 @@ export const DUMMY_CHATBOT_PROMPTS: ChatbotPromptTopics = {
         "Identify and analyze the most frequently mentioned social impact measurement frameworks and metrics in the discourse.",
     },
   },
-  topic2: {
+  "Topic 2": {
     question1: {
       prompt_pertanyaan: "How do people perceive impact investing returns?",
       optimal_prompt:
@@ -496,8 +498,13 @@ export const DUMMY_CHATBOT_PROMPTS: ChatbotPromptTopics = {
       optimal_prompt:
         "Examine discussions about challenges and obstacles in scaling impact investing initiatives and proposed solutions.",
     },
+    question3: {
+      prompt_pertanyaan: "Which impact investing models show the most promise?",
+      optimal_prompt:
+        "Evaluate different impact investing approaches and their effectiveness based on community discussions and sentiment analysis.",
+    },
   },
-  topic3: {
+  "Topic 3": {
     question1: {
       prompt_pertanyaan:
         "How authentic do people find current CSR initiatives?",
@@ -509,6 +516,12 @@ export const DUMMY_CHATBOT_PROMPTS: ChatbotPromptTopics = {
         "What ESG practices generate the most positive discussion?",
       optimal_prompt:
         "Identify ESG (Environmental, Social, Governance) practices that receive the most positive sentiment in social media discussions.",
+    },
+    question3: {
+      prompt_pertanyaan:
+        "How do consumers respond to sustainable business practices?",
+      optimal_prompt:
+        "Examine consumer sentiment and engagement with companies that prioritize sustainability and social responsibility.",
     },
   },
   topic4: {
@@ -591,11 +604,15 @@ export class OfflineDataProvider {
   }
 
   static getTweetsByProject(projectId: string): TweetTopic[] {
-    return DUMMY_TWEET_TOPICS.slice(0, 15); // Return sample tweets
+    return DUMMY_TWEET_TOPICS.slice(0, 15);
   }
 
   static getSentimentByProject(projectId: string): Sentiment {
-    return DUMMY_SENTIMENT;
+    // Create a copy with the sentiment array populated
+    return {
+      ...DUMMY_SENTIMENT,
+      sentiment: DUMMY_SENTIMENT_TWEETS,
+    };
   }
 
   static getSentimentTweetsByProject(projectId: string): TSentiment[] {
@@ -606,7 +623,11 @@ export class OfflineDataProvider {
   }
 
   static getEmotionByProject(projectId: string): Emotion {
-    return DUMMY_EMOTION;
+    // Create a copy with the emotion array populated
+    return {
+      ...DUMMY_EMOTION,
+      emotion: DUMMY_EMOTION_TWEETS,
+    };
   }
 
   static getEmotionTweetsByProject(projectId: string): TEmotion[] {
@@ -629,8 +650,7 @@ export class OfflineDataProvider {
   }
 
   static getChatbotResponse(question: string): ChatbotMessage {
-    // Simple response based on question keywords
-    let response = DUMMY_CHATBOT_RESPONSE;
+    let response = { ...DUMMY_CHATBOT_RESPONSE };
 
     if (question.toLowerCase().includes("sentiment")) {
       response = {
@@ -663,5 +683,40 @@ export class OfflineDataProvider {
     }
 
     return response;
+  }
+
+  static createProject(projectData: {
+    title: string;
+    description: string;
+    category: string;
+    keyword: string;
+    language: string;
+    start_date_crawl: string;
+    end_date_crawl: string;
+  }): Project {
+    const newProject: Project = {
+      _id: `dummy-project-${Date.now()}`,
+      title: projectData.title,
+      description: projectData.description,
+      topic_category: projectData.category,
+      keyword: projectData.keyword,
+      language: projectData.language,
+      start_date_crawl: projectData.start_date_crawl,
+      end_date_crawl: projectData.end_date_crawl,
+    };
+
+    // Add to dummy projects array
+    DUMMY_PROJECTS.push(newProject);
+
+    return newProject;
+  }
+
+  static deleteProject(id: string): boolean {
+    const index = DUMMY_PROJECTS.findIndex((p) => p._id === id);
+    if (index > -1) {
+      DUMMY_PROJECTS.splice(index, 1);
+      return true;
+    }
+    return false;
   }
 }

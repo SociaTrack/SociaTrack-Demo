@@ -8,6 +8,7 @@ interface Emotion {
 interface TEmotion {
   _id: string;
   conversation_id_str: string;
+  // username: string;
   full_text: string;
   id_str: string;
   in_reply_to_screen_name?: string;

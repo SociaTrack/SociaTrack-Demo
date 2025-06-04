@@ -20,7 +20,7 @@ const TrenOfTweet = () => {
   return (
     <section className="w-[761px] min-h-screen p-6 bg-white rounded-lg shadow flex-col justify-start items-start gap-6 inline-flex">
       {/* topik analisis */}
-      <div className="self-stretch h-[490px] px-6 py-5 bg-white rounded-lg border border-zinc-100 flex-col justify-start items-start gap-5 flex">
+      <div className="self-stretch h-fit px-6 py-5 bg-white rounded-lg border border-zinc-100 flex-col justify-start items-start gap-5 flex">
         <div className="self-stretch py-1 justify-start items-center gap-2 inline-flex">
           <Header
             label="Keyword"
@@ -28,7 +28,7 @@ const TrenOfTweet = () => {
             num={topics.length.toString()}
           />
         </div>
-        <div className="self-stretch h-[390px] flex-col justify-start items-start gap-2.5 flex">
+        <div className="self-stretch h-fit flex-col justify-start items-start gap-2.5 flex">
           <TableTopicAnalysis topics={topics} />
         </div>
       </div>
