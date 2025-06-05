@@ -7,6 +7,12 @@
 
 A comprehensive social media analytics platform for analyzing Twitter/X data including sentiment analysis, emotion detection, topic modeling, and social network analysis.
 
+## 🌐 Live Demo
+
+**[Try SociaTrack Demo](https://sociatrack-demo.vercel.app/)**
+
+Experience the full functionality with sample data and demo credentials.
+
 ## 🌟 Features
 
 ### Core Analytics
