@@ -23,11 +23,16 @@ import {
 } from "@/components/ui/select";
 
 const CommunitySNA = () => {
-  const { community, filteredCommunity, selectedProject, topics, setFilteredCommunity } =
-    useAnalysis();
+  const {
+    community,
+    filteredCommunity,
+    selectedProject,
+    topics,
+    setFilteredCommunity,
+  } = useAnalysis();
 
   const [communityList, setCommunityList] = useState<number[]>([]);
-  const [activeCommunity, setActiveCommunity] = useState(null);
+  const [activeCommunity, setActiveCommunity] = useState<number | null>(null);
   const [trenTopic, setTrenTopic] = useState<Topic | null>(null);
 
   const [selectedGraph, setSelectedGraph] = useState<string>("2d");
@@ -54,7 +59,9 @@ const CommunitySNA = () => {
     );
     const filteredLinks = community.links.filter(
       (link) =>
-        filteredNodes.some((node) => node.community === link.source_community) &&
+        filteredNodes.some(
+          (node) => node.community === link.source_community
+        ) &&
         filteredNodes.some((node) => node.community === link.target_community)
     );
 
@@ -82,13 +89,22 @@ const CommunitySNA = () => {
     setTrenTopic(topic ?? null);
   }, [activeCommunity, community, topics]);
 
-  const handleTriggerClick = (community: any) => {
-    setActiveCommunity(activeCommunity === community ? null : community);
+  const handleTriggerClick = (communityId: number) => {
+    // If clicking the same community, close it (set to null)
+    // If clicking a different community, open it
+    setActiveCommunity(activeCommunity === communityId ? null : communityId);
   };
 
-  const filterTweets = (): CommunityLink[] | null => {
-    return (
-      community?.links.filter((link) => link.source_community === activeCommunity) ?? null
+  const filterTweets = (): CommunityLink[] => {
+    if (!community || activeCommunity === null) {
+      return [];
+    }
+
+    // Filter tweets for the active community
+    return community.links.filter(
+      (link) =>
+        link.source_community === activeCommunity ||
+        link.target_community === activeCommunity
     );
   };
 
@@ -143,28 +159,28 @@ const CommunitySNA = () => {
         </div>
         <div className="self-stretch grow shrink basis-0 justify-start items-start gap-5 inline-flex mt-5">
           <div className="grow shrink h-[400px] flex-col justify-start items-start gap-2.5 inline-flex overflow-scroll">
-            <div className="self-stretch  gap-1">
+            <div className="self-stretch gap-1">
               <div className="grid gap-2">
                 {communityList.length ? (
-                  communityList.map((community, index) => (
+                  communityList.map((communityId, index) => (
                     <Collapsible
-                      key={index}
-                      open={activeCommunity === community}
+                      key={`community-${communityId}`}
+                      open={activeCommunity === communityId}
                       className="border border-gray-200 rounded-xl"
                     >
                       <div className="grid items-center">
                         <CollapsibleTrigger asChild className="px-3 py-8">
                           <Button
                             className={`text-foreground font-bold hover:text-primary-foreground hover:bg-secondary w-full rounded-xl 
-                          ${activeCommunity === community ? "bg-secondary text-primary-foreground" : "bg-white"}`}
-                            onClick={() => handleTriggerClick(community)}
+                          ${activeCommunity === communityId ? "bg-secondary text-primary-foreground" : "bg-white"}`}
+                            onClick={() => handleTriggerClick(communityId)}
                           >
                             <span className="w-8 h-8 border border-gray-300 rounded-md flex items-center justify-center mr-3">
                               {index + 1}
                             </span>
-                            Community {community}
+                            Community {communityId}
                             <span className="ml-auto">
-                              {activeCommunity === community ? (
+                              {activeCommunity === communityId ? (
                                 <ChevronDown />
                               ) : (
                                 <ChevronRight />
@@ -173,19 +189,28 @@ const CommunitySNA = () => {
                           </Button>
                         </CollapsibleTrigger>
                       </div>
-                      <CollapsibleContent>
-                        <h4 className="text-zinc-800 font-semibold">
-                          Topic
-                        </h4>
-                        {trenTopic?.context}
+                      <CollapsibleContent className="px-4 pb-4">
+                        {activeCommunity === communityId && (
+                          <>
+                            <h4 className="text-zinc-800 font-semibold mb-2">
+                              Topic
+                            </h4>
+                            <p className="text-sm text-gray-600 mb-4">
+                              {trenTopic?.context ||
+                                "Loading topic information..."}
+                            </p>
 
-                        <h4 className="text-zinc-800 font-semibold mt-3">
-                          Detail Tweets
-                        </h4>
-                        <LoadMoreTweetTopic
-                          items={filterTweets() ?? []}
-                          itemsPerPage={10}
-                        />
+                            <h4 className="text-zinc-800 font-semibold mb-2">
+                              Detail Tweets
+                            </h4>
+                            <div className="max-h-60 overflow-y-auto">
+                              <LoadMoreTweetTopic
+                                items={filterTweets()}
+                                itemsPerPage={5}
+                              />
+                            </div>
+                          </>
+                        )}
                       </CollapsibleContent>
                     </Collapsible>
                   ))

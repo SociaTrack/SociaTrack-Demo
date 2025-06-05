@@ -506,6 +506,7 @@ export const DUMMY_BUZZERS: Buzzer[] = [
 // Dummy Community Data - Social Business Ecosystem
 export const DUMMY_COMMUNITY: Community = {
   nodes: [
+    // Community 1: Social Entrepreneurs & Innovators
     {
       community: 1,
       id: "social_entrepreneurs",
@@ -514,12 +515,56 @@ export const DUMMY_COMMUNITY: Community = {
       val: 45,
     },
     {
+      community: 1,
+      id: "social_innovators",
+      name: "Social Innovation Hub",
+      profile_url: "https://twitter.com/social_innovators",
+      val: 29,
+    },
+    {
+      community: 1,
+      id: "impact_startups",
+      name: "Impact Startups Coalition",
+      profile_url: "https://twitter.com/impact_startups",
+      val: 38,
+    },
+    {
+      community: 1,
+      id: "social_tech_pioneers",
+      name: "Social Tech Pioneers",
+      profile_url: "https://twitter.com/social_tech_pioneers",
+      val: 32,
+    },
+    // Community 2: Impact Investors & Finance
+    {
       community: 2,
       id: "impact_investors",
       name: "Impact Investors Circle",
       profile_url: "https://twitter.com/impact_investors",
       val: 67,
     },
+    {
+      community: 2,
+      id: "social_finance_experts",
+      name: "Social Finance Experts",
+      profile_url: "https://twitter.com/social_finance_experts",
+      val: 54,
+    },
+    {
+      community: 2,
+      id: "impact_funds",
+      name: "Impact Investment Funds",
+      profile_url: "https://twitter.com/impact_funds",
+      val: 41,
+    },
+    {
+      community: 2,
+      id: "patient_capital",
+      name: "Patient Capital Alliance",
+      profile_url: "https://twitter.com/patient_capital",
+      val: 36,
+    },
+    // Community 3: Corporate CSR & Sustainability
     {
       community: 3,
       id: "csr_professionals",
@@ -528,6 +573,28 @@ export const DUMMY_COMMUNITY: Community = {
       val: 38,
     },
     {
+      community: 3,
+      id: "sustainability_leaders",
+      name: "Corporate Sustainability Leaders",
+      profile_url: "https://twitter.com/sustainability_leaders",
+      val: 43,
+    },
+    {
+      community: 3,
+      id: "esg_experts",
+      name: "ESG Implementation Experts",
+      profile_url: "https://twitter.com/esg_experts",
+      val: 35,
+    },
+    {
+      community: 3,
+      id: "green_business",
+      name: "Green Business Network",
+      profile_url: "https://twitter.com/green_business",
+      val: 31,
+    },
+    // Community 4: SDG & Development Organizations
+    {
       community: 4,
       id: "sdg_advocates",
       name: "SDG Implementation Network",
@@ -535,44 +602,29 @@ export const DUMMY_COMMUNITY: Community = {
       val: 52,
     },
     {
-      community: 1,
-      id: "social_innovators",
-      name: "Social Innovation Hub",
-      profile_url: "https://twitter.com/social_innovators",
-      val: 29,
+      community: 4,
+      id: "development_orgs",
+      name: "Development Organizations",
+      profile_url: "https://twitter.com/development_orgs",
+      val: 48,
+    },
+    {
+      community: 4,
+      id: "policy_makers",
+      name: "Policy Makers for Impact",
+      profile_url: "https://twitter.com/policy_makers",
+      val: 39,
+    },
+    {
+      community: 4,
+      id: "un_partnerships",
+      name: "UN Global Partnerships",
+      profile_url: "https://twitter.com/un_partnerships",
+      val: 44,
     },
   ],
   links: [
-    {
-      full_text:
-        "Exciting collaboration between social entrepreneurs and impact investors on scaling sustainable ventures!",
-      source: "social_entrepreneurs",
-      source_community: 1,
-      target: "impact_investors",
-      target_community: 2,
-      topic: "1",
-      url_tweet: "https://twitter.com/social_entrepreneurs/status/1234567890",
-    },
-    {
-      full_text:
-        "Impact investors and CSR professionals discussing ESG metrics and social return frameworks.",
-      source: "impact_investors",
-      source_community: 2,
-      target: "csr_professionals",
-      target_community: 3,
-      topic: "2",
-      url_tweet: "https://twitter.com/impact_investors/status/1234567891",
-    },
-    {
-      full_text:
-        "CSR teams partnering with SDG advocates to implement sustainable development goals in corporate strategy.",
-      source: "csr_professionals",
-      source_community: 3,
-      target: "sdg_advocates",
-      target_community: 4,
-      topic: "3",
-      url_tweet: "https://twitter.com/csr_professionals/status/1234567892",
-    },
+    // Community 1 - Internal connections
     {
       full_text:
         "Social entrepreneurs and innovators co-creating solutions for community development challenges.",
@@ -585,6 +637,390 @@ export const DUMMY_COMMUNITY: Community = {
     },
     {
       full_text:
+        "Social entrepreneurs collaborating with impact startups on sustainable business models.",
+      source: "social_entrepreneurs",
+      source_community: 1,
+      target: "impact_startups",
+      target_community: 1,
+      topic: "1",
+      url_tweet: "https://twitter.com/social_entrepreneurs/status/1234567905",
+    },
+    {
+      full_text:
+        "Social entrepreneurs partnering with tech pioneers for digital social innovation.",
+      source: "social_entrepreneurs",
+      source_community: 1,
+      target: "social_tech_pioneers",
+      target_community: 1,
+      topic: "1",
+      url_tweet: "https://twitter.com/social_entrepreneurs/status/1234567906",
+    },
+    {
+      full_text:
+        "Impact startups leveraging social technology to address poverty and inequality challenges.",
+      source: "impact_startups",
+      source_community: 1,
+      target: "social_tech_pioneers",
+      target_community: 1,
+      topic: "1",
+      url_tweet: "https://twitter.com/impact_startups/status/1234567895",
+    },
+    {
+      full_text:
+        "Social innovation hubs incubating impact startups with technology solutions.",
+      source: "social_innovators",
+      source_community: 1,
+      target: "impact_startups",
+      target_community: 1,
+      topic: "1",
+      url_tweet: "https://twitter.com/social_innovators/status/1234567907",
+    },
+    {
+      full_text:
+        "Social innovation hubs collaborating with tech pioneers on AI for social good.",
+      source: "social_innovators",
+      source_community: 1,
+      target: "social_tech_pioneers",
+      target_community: 1,
+      topic: "1",
+      url_tweet: "https://twitter.com/social_innovators/status/1234567908",
+    },
+
+    // Community 2 - Internal connections (all nodes connected to each other)
+    {
+      full_text:
+        "Social finance experts and impact funds discussing blended finance mechanisms for development projects.",
+      source: "social_finance_experts",
+      source_community: 2,
+      target: "impact_funds",
+      target_community: 2,
+      topic: "2",
+      url_tweet: "https://twitter.com/social_finance_experts/status/1234567896",
+    },
+    {
+      full_text:
+        "Impact investors connecting with social finance experts for innovative funding strategies.",
+      source: "impact_investors",
+      source_community: 2,
+      target: "social_finance_experts",
+      target_community: 2,
+      topic: "2",
+      url_tweet: "https://twitter.com/impact_investors/status/1234567909",
+    },
+    {
+      full_text:
+        "Impact investors collaborating with impact funds on portfolio diversification.",
+      source: "impact_investors",
+      source_community: 2,
+      target: "impact_funds",
+      target_community: 2,
+      topic: "2",
+      url_tweet: "https://twitter.com/impact_investors/status/1234567910",
+    },
+    {
+      full_text:
+        "Patient capital alliance providing long-term funding for social ventures with sustainable impact.",
+      source: "patient_capital",
+      source_community: 2,
+      target: "impact_investors",
+      target_community: 2,
+      topic: "2",
+      url_tweet: "https://twitter.com/patient_capital/status/1234567897",
+    },
+    {
+      full_text:
+        "Patient capital working with social finance experts on innovative funding mechanisms.",
+      source: "patient_capital",
+      source_community: 2,
+      target: "social_finance_experts",
+      target_community: 2,
+      topic: "2",
+      url_tweet: "https://twitter.com/patient_capital/status/1234567911",
+    },
+    {
+      full_text:
+        "Patient capital partnering with impact funds for long-term sustainable investments.",
+      source: "patient_capital",
+      source_community: 2,
+      target: "impact_funds",
+      target_community: 2,
+      topic: "2",
+      url_tweet: "https://twitter.com/patient_capital/status/1234567912",
+    },
+
+    // Community 3 - Internal connections (all nodes connected to each other)
+    {
+      full_text:
+        "Sustainability leaders and ESG experts collaborating on corporate impact measurement frameworks.",
+      source: "sustainability_leaders",
+      source_community: 3,
+      target: "esg_experts",
+      target_community: 3,
+      topic: "3",
+      url_tweet: "https://twitter.com/sustainability_leaders/status/1234567898",
+    },
+    {
+      full_text:
+        "CSR professionals working with sustainability leaders on comprehensive ESG strategies.",
+      source: "csr_professionals",
+      source_community: 3,
+      target: "sustainability_leaders",
+      target_community: 3,
+      topic: "3",
+      url_tweet: "https://twitter.com/csr_professionals/status/1234567913",
+    },
+    {
+      full_text:
+        "CSR professionals partnering with ESG experts for advanced reporting standards.",
+      source: "csr_professionals",
+      source_community: 3,
+      target: "esg_experts",
+      target_community: 3,
+      topic: "3",
+      url_tweet: "https://twitter.com/csr_professionals/status/1234567914",
+    },
+    {
+      full_text:
+        "Green business network sharing best practices for environmental and social corporate responsibility.",
+      source: "green_business",
+      source_community: 3,
+      target: "csr_professionals",
+      target_community: 3,
+      topic: "3",
+      url_tweet: "https://twitter.com/green_business/status/1234567899",
+    },
+    {
+      full_text:
+        "Green business network collaborating with sustainability leaders on eco-friendly initiatives.",
+      source: "green_business",
+      source_community: 3,
+      target: "sustainability_leaders",
+      target_community: 3,
+      topic: "3",
+      url_tweet: "https://twitter.com/green_business/status/1234567915",
+    },
+    {
+      full_text:
+        "Green business network working with ESG experts on environmental compliance standards.",
+      source: "green_business",
+      source_community: 3,
+      target: "esg_experts",
+      target_community: 3,
+      topic: "3",
+      url_tweet: "https://twitter.com/green_business/status/1234567916",
+    },
+
+    // Community 4 - Internal connections (all nodes connected to each other)
+    {
+      full_text:
+        "Development organizations and policy makers aligning strategies for SDG implementation and monitoring.",
+      source: "development_orgs",
+      source_community: 4,
+      target: "policy_makers",
+      target_community: 4,
+      topic: "4",
+      url_tweet: "https://twitter.com/development_orgs/status/1234567900",
+    },
+    {
+      full_text:
+        "SDG advocates working with development organizations on global impact initiatives.",
+      source: "sdg_advocates",
+      source_community: 4,
+      target: "development_orgs",
+      target_community: 4,
+      topic: "4",
+      url_tweet: "https://twitter.com/sdg_advocates/status/1234567917",
+    },
+    {
+      full_text:
+        "SDG advocates collaborating with policy makers on sustainable development regulations.",
+      source: "sdg_advocates",
+      source_community: 4,
+      target: "policy_makers",
+      target_community: 4,
+      topic: "4",
+      url_tweet: "https://twitter.com/sdg_advocates/status/1234567918",
+    },
+    {
+      full_text:
+        "UN partnerships facilitating global cooperation on sustainable development and social impact initiatives.",
+      source: "un_partnerships",
+      source_community: 4,
+      target: "sdg_advocates",
+      target_community: 4,
+      topic: "4",
+      url_tweet: "https://twitter.com/un_partnerships/status/1234567901",
+    },
+    {
+      full_text:
+        "UN partnerships supporting development organizations in global sustainability projects.",
+      source: "un_partnerships",
+      source_community: 4,
+      target: "development_orgs",
+      target_community: 4,
+      topic: "4",
+      url_tweet: "https://twitter.com/un_partnerships/status/1234567919",
+    },
+    {
+      full_text:
+        "UN partnerships working with policy makers on international development frameworks.",
+      source: "un_partnerships",
+      source_community: 4,
+      target: "policy_makers",
+      target_community: 4,
+      topic: "4",
+      url_tweet: "https://twitter.com/un_partnerships/status/1234567920",
+    },
+
+    // Inter-community connections (Community 1 to all others)
+    {
+      full_text:
+        "Exciting collaboration between social entrepreneurs and impact investors on scaling sustainable ventures!",
+      source: "social_entrepreneurs",
+      source_community: 1,
+      target: "impact_investors",
+      target_community: 2,
+      topic: "1",
+      url_tweet: "https://twitter.com/social_entrepreneurs/status/1234567890",
+    },
+    {
+      full_text:
+        "Social entrepreneurs engaging with CSR professionals for corporate partnership opportunities.",
+      source: "social_entrepreneurs",
+      source_community: 1,
+      target: "csr_professionals",
+      target_community: 3,
+      topic: "1",
+      url_tweet: "https://twitter.com/social_entrepreneurs/status/1234567921",
+    },
+    {
+      full_text:
+        "Social entrepreneurs working with SDG advocates to align business models with global goals.",
+      source: "social_entrepreneurs",
+      source_community: 1,
+      target: "sdg_advocates",
+      target_community: 4,
+      topic: "1",
+      url_tweet: "https://twitter.com/social_entrepreneurs/status/1234567922",
+    },
+    {
+      full_text:
+        "Social innovators connecting with social finance experts for funding innovation labs.",
+      source: "social_innovators",
+      source_community: 1,
+      target: "social_finance_experts",
+      target_community: 2,
+      topic: "1",
+      url_tweet: "https://twitter.com/social_innovators/status/1234567923",
+    },
+    {
+      full_text:
+        "Social tech pioneers connecting with sustainability leaders to develop green technology solutions.",
+      source: "social_tech_pioneers",
+      source_community: 1,
+      target: "sustainability_leaders",
+      target_community: 3,
+      topic: "1",
+      url_tweet: "https://twitter.com/social_tech_pioneers/status/1234567902",
+    },
+    {
+      full_text:
+        "Impact startups partnering with development organizations for market expansion in emerging economies.",
+      source: "impact_startups",
+      source_community: 1,
+      target: "development_orgs",
+      target_community: 4,
+      topic: "1",
+      url_tweet: "https://twitter.com/impact_startups/status/1234567924",
+    },
+
+    // Inter-community connections (Community 2 to others)
+    {
+      full_text:
+        "Impact investors and CSR professionals discussing ESG metrics and social return frameworks.",
+      source: "impact_investors",
+      source_community: 2,
+      target: "csr_professionals",
+      target_community: 3,
+      topic: "2",
+      url_tweet: "https://twitter.com/impact_investors/status/1234567891",
+    },
+    {
+      full_text:
+        "Impact funds partnering with development organizations for scaling social impact in emerging markets.",
+      source: "impact_funds",
+      source_community: 2,
+      target: "development_orgs",
+      target_community: 4,
+      topic: "2",
+      url_tweet: "https://twitter.com/impact_funds/status/1234567903",
+    },
+    {
+      full_text:
+        "Social finance experts consulting with ESG experts on sustainable investment strategies.",
+      source: "social_finance_experts",
+      source_community: 2,
+      target: "esg_experts",
+      target_community: 3,
+      topic: "2",
+      url_tweet: "https://twitter.com/social_finance_experts/status/1234567925",
+    },
+    {
+      full_text:
+        "Patient capital supporting policy makers in developing long-term sustainable finance policies.",
+      source: "patient_capital",
+      source_community: 2,
+      target: "policy_makers",
+      target_community: 4,
+      topic: "2",
+      url_tweet: "https://twitter.com/patient_capital/status/1234567926",
+    },
+
+    // Inter-community connections (Community 3 to Community 4)
+    {
+      full_text:
+        "CSR teams partnering with SDG advocates to implement sustainable development goals in corporate strategy.",
+      source: "csr_professionals",
+      source_community: 3,
+      target: "sdg_advocates",
+      target_community: 4,
+      topic: "3",
+      url_tweet: "https://twitter.com/csr_professionals/status/1234567892",
+    },
+    {
+      full_text:
+        "Sustainability leaders working with UN partnerships on global corporate sustainability initiatives.",
+      source: "sustainability_leaders",
+      source_community: 3,
+      target: "un_partnerships",
+      target_community: 4,
+      topic: "3",
+      url_tweet: "https://twitter.com/sustainability_leaders/status/1234567927",
+    },
+    {
+      full_text:
+        "ESG experts collaborating with development organizations on impact measurement standards.",
+      source: "esg_experts",
+      source_community: 3,
+      target: "development_orgs",
+      target_community: 4,
+      topic: "3",
+      url_tweet: "https://twitter.com/esg_experts/status/1234567928",
+    },
+    {
+      full_text:
+        "Green business network supporting policy makers in environmental regulation development.",
+      source: "green_business",
+      source_community: 3,
+      target: "policy_makers",
+      target_community: 4,
+      topic: "3",
+      url_tweet: "https://twitter.com/green_business/status/1234567929",
+    },
+
+    // Additional cross-connections for complete network coverage
+    {
+      full_text:
         "SDG advocates working with social innovation hubs to develop scalable impact measurement tools.",
       source: "sdg_advocates",
       source_community: 4,
@@ -592,6 +1028,36 @@ export const DUMMY_COMMUNITY: Community = {
       target_community: 1,
       topic: "4",
       url_tweet: "https://twitter.com/sdg_advocates/status/1234567894",
+    },
+    {
+      full_text:
+        "Policy makers engaging with impact startups to create supportive regulatory frameworks for social innovation.",
+      source: "policy_makers",
+      source_community: 4,
+      target: "impact_startups",
+      target_community: 1,
+      topic: "4",
+      url_tweet: "https://twitter.com/policy_makers/status/1234567904",
+    },
+    {
+      full_text:
+        "Development organizations partnering with social tech pioneers for digital development solutions.",
+      source: "development_orgs",
+      source_community: 4,
+      target: "social_tech_pioneers",
+      target_community: 1,
+      topic: "4",
+      url_tweet: "https://twitter.com/development_orgs/status/1234567930",
+    },
+    {
+      full_text:
+        "UN partnerships collaborating with social entrepreneurs on global social innovation networks.",
+      source: "un_partnerships",
+      source_community: 4,
+      target: "social_entrepreneurs",
+      target_community: 1,
+      topic: "4",
+      url_tweet: "https://twitter.com/un_partnerships/status/1234567931",
     },
   ],
 };
