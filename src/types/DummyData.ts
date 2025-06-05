@@ -165,216 +165,341 @@ export const DUMMY_TWEET_TOPICS: TweetTopic[] = [
 // Dummy Sentiment Data - Enhanced for Social Business Context
 export const DUMMY_SENTIMENT: Sentiment = {
   total_data: 18750,
-  positive_cnn: 12500,
-  negative_cnn: 6250,
-  positive_cnn_lstm: 13125,
-  negative_cnn_lstm: 5625,
-  positive_percentage_cnn: 66.7,
-  negative_percentage_cnn: 33.3,
-  positive_percentage_cnn_lstm: 70.0,
-  negative_percentage_cnn_lstm: 30.0,
+  sentiment_percentage: {
+    negative: 30,
+    positive: 70,
+  },
+  sentiment_percentage_by_topic: {
+    negative: 25,
+    positive: 75,
+  },
   sentiment: [], // Add missing sentiment array property
 };
 
 export const DUMMY_SENTIMENT_TWEETS: TSentiment[] = [
   {
+    _id: "sentiment_001",
+    conversation_id_str: "1234567895001",
     full_text:
       "The growth of social enterprises gives me hope for solving poverty and inequality through business innovation!",
-    tweet_url: "https://twitter.com/user1/status/1234567895",
-    username: "social_impact_fan",
+    id_str: "1234567895",
+    in_reply_to_screen_name: undefined,
     predicted_sentiment_cnn: "Positif",
     predicted_sentiment_cnn_lstm: "Positif",
+    predicted_sentiment_cnn_probability: 0.85,
+    predicted_sentiment_cnn_lstm_probability: 0.92,
+    processed_text:
+      "growth social enterprises hope solving poverty inequality business innovation",
+    project_id: "dummy-project-001",
     topic: "1",
+    tweet_url: "https://twitter.com/user1/status/1234567895",
   },
   {
+    _id: "sentiment_002",
+    conversation_id_str: "1234567896001",
     full_text:
       "Unfortunately, many impact investments still struggle to demonstrate clear social returns. We need better measurement frameworks.",
-    tweet_url: "https://twitter.com/user2/status/1234567896",
-    username: "impact_critic",
+    id_str: "1234567896",
+    in_reply_to_screen_name: undefined,
     predicted_sentiment_cnn: "Negatif",
     predicted_sentiment_cnn_lstm: "Negatif",
+    predicted_sentiment_cnn_probability: 0.78,
+    predicted_sentiment_cnn_lstm_probability: 0.82,
+    processed_text:
+      "unfortunately impact investments struggle demonstrate clear social returns need better measurement frameworks",
+    project_id: "dummy-project-001",
     topic: "2",
+    tweet_url: "https://twitter.com/user2/status/1234567896",
   },
   {
+    _id: "sentiment_003",
+    conversation_id_str: "1234567897001",
     full_text:
       "B Corporations are leading the way in showing that business can be a powerful force for positive social and environmental change!",
-    tweet_url: "https://twitter.com/user3/status/1234567897",
-    username: "purpose_driven_business",
+    id_str: "1234567897",
+    in_reply_to_screen_name: undefined,
     predicted_sentiment_cnn: "Positif",
     predicted_sentiment_cnn_lstm: "Positif",
+    predicted_sentiment_cnn_probability: 0.91,
+    predicted_sentiment_cnn_lstm_probability: 0.94,
+    processed_text:
+      "b corporations leading way showing business powerful force positive social environmental change",
+    project_id: "dummy-project-002",
     topic: "3",
+    tweet_url: "https://twitter.com/user3/status/1234567897",
   },
   {
+    _id: "sentiment_004",
+    conversation_id_str: "1234567898001",
     full_text:
       "Corporate CSR programs often feel like greenwashing rather than genuine commitment to social responsibility.",
-    tweet_url: "https://twitter.com/user4/status/1234567898",
-    username: "sustainability_skeptic",
+    id_str: "1234567898",
+    in_reply_to_screen_name: undefined,
     predicted_sentiment_cnn: "Negatif",
     predicted_sentiment_cnn_lstm: "Negatif",
+    predicted_sentiment_cnn_probability: 0.88,
+    predicted_sentiment_cnn_lstm_probability: 0.85,
+    processed_text:
+      "corporate csr programs often feel greenwashing rather genuine commitment social responsibility",
+    project_id: "dummy-project-002",
     topic: "3",
+    tweet_url: "https://twitter.com/user4/status/1234567898",
   },
   {
+    _id: "sentiment_005",
+    conversation_id_str: "1234567899001",
     full_text:
       "The SDGs provide an amazing framework for businesses to create meaningful impact while building sustainable operations.",
-    tweet_url: "https://twitter.com/user5/status/1234567899",
-    username: "sdg_enthusiast",
+    id_str: "1234567899",
+    in_reply_to_screen_name: undefined,
     predicted_sentiment_cnn: "Positif",
     predicted_sentiment_cnn_lstm: "Positif",
+    predicted_sentiment_cnn_probability: 0.89,
+    predicted_sentiment_cnn_lstm_probability: 0.93,
+    processed_text:
+      "sdgs provide amazing framework businesses create meaningful impact building sustainable operations",
+    project_id: "dummy-project-003",
     topic: "4",
+    tweet_url: "https://twitter.com/user5/status/1234567899",
   },
 ];
 
 // Dummy Emotion Data - Social Business Context
 export const DUMMY_EMOTION: Emotion = {
   total_data: 18750,
-  fear_cnn: 1125,
-  sad_cnn: 1875,
-  love_cnn: 5625,
-  joy_cnn: 6750,
-  anger_cnn: 1875,
-  neutral_cnn: 1500,
-  fear_bilstm: 1050,
-  sad_bilstm: 1688,
-  love_bilstm: 6000,
-  joy_bilstm: 7125,
-  anger_bilstm: 1687,
-  neutral_bilstm: 1200,
-  fear_percentage_cnn: 6.0,
-  sad_percentage_cnn: 10.0,
-  love_percentage_cnn: 30.0,
-  joy_percentage_cnn: 36.0,
-  anger_percentage_cnn: 10.0,
-  neutral_percentage_cnn: 8.0,
-  fear_percentage_bilstm: 5.6,
-  sad_percentage_bilstm: 9.0,
-  love_percentage_bilstm: 32.0,
-  joy_percentage_bilstm: 38.0,
-  anger_percentage_bilstm: 9.0,
-  neutral_percentage_bilstm: 6.4,
+  emotion_percentage: {
+    Anger: 10.0,
+    Fear: 6.0,
+    Joy: 36.0,
+    Love: 30.0,
+    Neutral: 8.0,
+    Sad: 10.0,
+  },
+  emotion_percentage_by_topic: {
+    Anger: 9.0,
+    Fear: 5.6,
+    Joy: 38.0,
+    Love: 32.0,
+    Neutral: 6.4,
+    Sad: 9.0,
+  },
   emotion: [], // Add missing emotion array property
 };
 
 export const DUMMY_EMOTION_TWEETS: TEmotion[] = [
   {
+    _id: "emotion_001",
+    conversation_id_str: "1234567898001",
     full_text:
       "I'm absolutely thrilled about the growth of social entrepreneurship and its potential to solve global challenges!",
-    tweet_url: "https://twitter.com/user1/status/1234567898",
-    username: "passionate_changemaker",
+    id_str: "1234567898",
+    in_reply_to_screen_name: undefined,
     predicted_emotions_cnn: "Joy",
     predicted_emotions_bilstm: "Joy",
+    predicted_emotions_cnn_probability: {
+      Anger: 0.05,
+      Fear: 0.03,
+      Joy: 0.85,
+      Love: 0.04,
+      Neutral: 0.02,
+      Sad: 0.01,
+    },
+    predicted_emotions_bilstm_probability: {
+      Anger: 0.04,
+      Fear: 0.02,
+      Joy: 0.88,
+      Love: 0.03,
+      Neutral: 0.02,
+      Sad: 0.01,
+    },
+    processed_text:
+      "absolutely thrilled growth social entrepreneurship potential solve global challenges",
+    projectId: "dummy-project-001",
     topic: "1",
+    tweet_url: "https://twitter.com/user1/status/1234567898",
   },
   {
+    _id: "emotion_002",
+    conversation_id_str: "1234567899001",
     full_text:
       "I love seeing businesses that prioritize people and planet alongside profit. This gives me so much hope for the future!",
-    tweet_url: "https://twitter.com/user2/status/1234567899",
-    username: "purpose_lover",
+    id_str: "1234567899",
+    in_reply_to_screen_name: undefined,
     predicted_emotions_cnn: "Love",
     predicted_emotions_bilstm: "Love",
+    predicted_emotions_cnn_probability: {
+      Anger: 0.02,
+      Fear: 0.03,
+      Joy: 0.15,
+      Love: 0.75,
+      Neutral: 0.03,
+      Sad: 0.02,
+    },
+    predicted_emotions_bilstm_probability: {
+      Anger: 0.01,
+      Fear: 0.02,
+      Joy: 0.18,
+      Love: 0.77,
+      Neutral: 0.01,
+      Sad: 0.01,
+    },
+    processed_text:
+      "love seeing businesses prioritize people planet alongside profit gives hope future",
+    projectId: "dummy-project-002",
     topic: "3",
+    tweet_url: "https://twitter.com/user2/status/1234567899",
   },
   {
+    _id: "emotion_003",
+    conversation_id_str: "1234567900001",
     full_text:
       "Worried about the slow progress in achieving SDGs. We need more urgent action from both governments and businesses.",
-    tweet_url: "https://twitter.com/user3/status/1234567900",
-    username: "sdg_concerned",
+    id_str: "1234567900",
+    in_reply_to_screen_name: undefined,
     predicted_emotions_cnn: "Fear",
     predicted_emotions_bilstm: "Fear",
+    predicted_emotions_cnn_probability: {
+      Anger: 0.15,
+      Fear: 0.68,
+      Joy: 0.02,
+      Love: 0.01,
+      Neutral: 0.12,
+      Sad: 0.02,
+    },
+    predicted_emotions_bilstm_probability: {
+      Anger: 0.12,
+      Fear: 0.72,
+      Joy: 0.01,
+      Love: 0.01,
+      Neutral: 0.13,
+      Sad: 0.01,
+    },
+    processed_text:
+      "worried slow progress achieving sdgs need urgent action governments businesses",
+    projectId: "dummy-project-003",
     topic: "4",
+    tweet_url: "https://twitter.com/user3/status/1234567900",
   },
   {
+    _id: "emotion_004",
+    conversation_id_str: "1234567901001",
     full_text:
       "It's frustrating when companies use social impact as a marketing gimmick without real commitment to change.",
-    tweet_url: "https://twitter.com/user4/status/1234567901",
-    username: "authenticity_advocate",
+    id_str: "1234567901",
+    in_reply_to_screen_name: undefined,
     predicted_emotions_cnn: "Anger",
     predicted_emotions_bilstm: "Anger",
+    predicted_emotions_cnn_probability: {
+      Anger: 0.78,
+      Fear: 0.08,
+      Joy: 0.02,
+      Love: 0.01,
+      Neutral: 0.09,
+      Sad: 0.02,
+    },
+    predicted_emotions_bilstm_probability: {
+      Anger: 0.82,
+      Fear: 0.06,
+      Joy: 0.01,
+      Love: 0.01,
+      Neutral: 0.08,
+      Sad: 0.02,
+    },
+    processed_text:
+      "frustrating companies use social impact marketing gimmick without real commitment change",
+    projectId: "dummy-project-002",
     topic: "3",
+    tweet_url: "https://twitter.com/user4/status/1234567901",
   },
   {
+    _id: "emotion_005",
+    conversation_id_str: "1234567902001",
     full_text:
       "Saddened by the persistence of poverty despite decades of development efforts. We need more innovative approaches.",
-    tweet_url: "https://twitter.com/user5/status/1234567902",
-    username: "development_observer",
+    id_str: "1234567902",
+    in_reply_to_screen_name: undefined,
     predicted_emotions_cnn: "Sad",
     predicted_emotions_bilstm: "Sad",
+    predicted_emotions_cnn_probability: {
+      Anger: 0.08,
+      Fear: 0.12,
+      Joy: 0.02,
+      Love: 0.03,
+      Neutral: 0.15,
+      Sad: 0.6,
+    },
+    predicted_emotions_bilstm_probability: {
+      Anger: 0.06,
+      Fear: 0.1,
+      Joy: 0.01,
+      Love: 0.02,
+      Neutral: 0.16,
+      Sad: 0.65,
+    },
+    processed_text:
+      "saddened persistence poverty despite decades development efforts need innovative approaches",
+    projectId: "dummy-project-003",
     topic: "4",
+    tweet_url: "https://twitter.com/user5/status/1234567902",
   },
 ];
 
 // Dummy Buzzer Data - Social Business Influencers
 export const DUMMY_BUZZERS: Buzzer[] = [
   {
-    username: "social_impact_guru",
-    followers_count: 250000,
-    following_count: 1500,
-    tweet_count: 18500,
-    listed_count: 156,
-    favourites_count: 75000,
-    account_age_days: 2190,
-    verified: true,
-    default_profile: false,
-    default_profile_image: false,
-    geo_enabled: true,
-    profile_use_background_image: true,
-    profile_background_image_url: "https://example.com/social_impact_bg.jpg",
-    profile_image_url: "https://example.com/social_impact_profile.jpg",
-    has_extended_profile: true,
-    is_translation_enabled: false,
-    is_translator: false,
-    translated_bio: "",
-    withheld_in_countries: [],
-    withheld_scope: "",
-    buzzer_score: 0.94,
-    buzzer_prediction: "buzzer",
+    BEC: 0.85,
+    BEC_Norm: 0.92,
+    EVC: 0.78,
+    topicId: 1,
+    EVC_norm: 0.81,
+    final_measure: 0.94,
+    node: "social_impact_guru",
+    projectId: "dummy-project-001",
+    tweet_url: "https://twitter.com/social_impact_guru/status/1234567890",
   },
   {
-    username: "sustainable_biz_leader",
-    followers_count: 180000,
-    following_count: 1200,
-    tweet_count: 15600,
-    listed_count: 98,
-    favourites_count: 52000,
-    account_age_days: 1825,
-    verified: true,
-    default_profile: false,
-    default_profile_image: false,
-    geo_enabled: true,
-    profile_use_background_image: true,
-    profile_background_image_url: "https://example.com/sustainability_bg.jpg",
-    profile_image_url: "https://example.com/sustainability_profile.jpg",
-    has_extended_profile: true,
-    is_translation_enabled: false,
-    is_translator: false,
-    translated_bio: "",
-    withheld_in_countries: [],
-    withheld_scope: "",
-    buzzer_score: 0.89,
-    buzzer_prediction: "buzzer",
+    BEC: 0.72,
+    BEC_Norm: 0.84,
+    EVC: 0.69,
+    topicId: 2,
+    EVC_norm: 0.75,
+    final_measure: 0.89,
+    node: "sustainable_biz_leader",
+    projectId: "dummy-project-002",
+    tweet_url: "https://twitter.com/sustainable_biz_leader/status/1234567891",
   },
   {
-    username: "impact_investor_pro",
-    followers_count: 135000,
-    following_count: 950,
-    tweet_count: 12400,
-    listed_count: 87,
-    favourites_count: 38500,
-    account_age_days: 1460,
-    verified: false,
-    default_profile: false,
-    default_profile_image: false,
-    geo_enabled: true,
-    profile_use_background_image: true,
-    profile_background_image_url: "https://example.com/investment_bg.jpg",
-    profile_image_url: "https://example.com/investment_profile.jpg",
-    has_extended_profile: true,
-    is_translation_enabled: false,
-    is_translator: false,
-    translated_bio: "",
-    withheld_in_countries: [],
-    withheld_scope: "",
-    buzzer_score: 0.87,
-    buzzer_prediction: "buzzer",
+    BEC: 0.68,
+    BEC_Norm: 0.79,
+    EVC: 0.71,
+    topicId: 3,
+    EVC_norm: 0.73,
+    final_measure: 0.87,
+    node: "impact_investor_pro",
+    projectId: "dummy-project-001",
+    tweet_url: "https://twitter.com/impact_investor_pro/status/1234567892",
+  },
+  {
+    BEC: 0.76,
+    BEC_Norm: 0.88,
+    EVC: 0.74,
+    topicId: 4,
+    EVC_norm: 0.82,
+    final_measure: 0.91,
+    node: "sdg_champion",
+    projectId: "dummy-project-003",
+    tweet_url: "https://twitter.com/sdg_champion/status/1234567893",
+  },
+  {
+    BEC: 0.71,
+    BEC_Norm: 0.81,
+    EVC: 0.66,
+    topicId: 1,
+    EVC_norm: 0.7,
+    final_measure: 0.85,
+    node: "bcorp_leader",
+    projectId: "dummy-project-002",
+    tweet_url: "https://twitter.com/bcorp_leader/status/1234567894",
   },
 ];
 
@@ -382,86 +507,91 @@ export const DUMMY_BUZZERS: Buzzer[] = [
 export const DUMMY_COMMUNITY: Community = {
   nodes: [
     {
+      community: 1,
       id: "social_entrepreneurs",
       name: "Social Entrepreneurs Network",
-      group: 1,
-      community: 1,
-      followers_count: 45000,
-      following_count: 2500,
+      profile_url: "https://twitter.com/social_entrepreneurs",
+      val: 45,
     },
     {
+      community: 2,
       id: "impact_investors",
       name: "Impact Investors Circle",
-      group: 2,
-      community: 2,
-      followers_count: 67000,
-      following_count: 1800,
+      profile_url: "https://twitter.com/impact_investors",
+      val: 67,
     },
     {
+      community: 3,
       id: "csr_professionals",
       name: "CSR & Sustainability Pros",
-      group: 3,
-      community: 3,
-      followers_count: 38000,
-      following_count: 3200,
+      profile_url: "https://twitter.com/csr_professionals",
+      val: 38,
     },
     {
+      community: 4,
       id: "sdg_advocates",
       name: "SDG Implementation Network",
-      group: 4,
-      community: 4,
-      followers_count: 52000,
-      following_count: 2100,
+      profile_url: "https://twitter.com/sdg_advocates",
+      val: 52,
     },
     {
+      community: 1,
       id: "social_innovators",
       name: "Social Innovation Hub",
-      group: 5,
-      community: 1,
-      followers_count: 29000,
-      following_count: 1950,
+      profile_url: "https://twitter.com/social_innovators",
+      val: 29,
     },
   ],
   links: [
     {
+      full_text:
+        "Exciting collaboration between social entrepreneurs and impact investors on scaling sustainable ventures!",
       source: "social_entrepreneurs",
+      source_community: 1,
       target: "impact_investors",
-      value: 8,
-      topic: "1",
-      source_community: 1,
       target_community: 2,
-    },
-    {
-      source: "impact_investors",
-      target: "csr_professionals",
-      value: 6,
-      topic: "2",
-      source_community: 2,
-      target_community: 3,
-    },
-    {
-      source: "csr_professionals",
-      target: "sdg_advocates",
-      value: 7,
-      topic: "3",
-      source_community: 3,
-      target_community: 4,
-    },
-    {
-      source: "social_entrepreneurs",
-      target: "social_innovators",
-      value: 9,
       topic: "1",
-      source_community: 1,
-      target_community: 1,
+      url_tweet: "https://twitter.com/social_entrepreneurs/status/1234567890",
     },
     {
-      source: "sdg_advocates",
+      full_text:
+        "Impact investors and CSR professionals discussing ESG metrics and social return frameworks.",
+      source: "impact_investors",
+      source_community: 2,
+      target: "csr_professionals",
+      target_community: 3,
+      topic: "2",
+      url_tweet: "https://twitter.com/impact_investors/status/1234567891",
+    },
+    {
+      full_text:
+        "CSR teams partnering with SDG advocates to implement sustainable development goals in corporate strategy.",
+      source: "csr_professionals",
+      source_community: 3,
+      target: "sdg_advocates",
+      target_community: 4,
+      topic: "3",
+      url_tweet: "https://twitter.com/csr_professionals/status/1234567892",
+    },
+    {
+      full_text:
+        "Social entrepreneurs and innovators co-creating solutions for community development challenges.",
+      source: "social_entrepreneurs",
+      source_community: 1,
       target: "social_innovators",
-      value: 5,
-      topic: "4",
-      source_community: 4,
       target_community: 1,
+      topic: "1",
+      url_tweet: "https://twitter.com/social_entrepreneurs/status/1234567893",
+    },
+    {
+      full_text:
+        "SDG advocates working with social innovation hubs to develop scalable impact measurement tools.",
+      source: "sdg_advocates",
+      source_community: 4,
+      target: "social_innovators",
+      target_community: 1,
+      topic: "4",
+      url_tweet: "https://twitter.com/sdg_advocates/status/1234567894",
     },
   ],
 };
@@ -469,71 +599,66 @@ export const DUMMY_COMMUNITY: Community = {
 // Dummy Chatbot Prompts - Social Business Context
 export const DUMMY_CHATBOT_PROMPTS: ChatbotPromptTopics = {
   "Topic 1": {
-    question1: {
-      prompt_pertanyaan: "What are the main trends in social entrepreneurship?",
+    pertanyaan1: {
+      pertanyaan: "What are the main trends in social entrepreneurship?",
       optimal_prompt:
         "Analyze the key trends and developments in social entrepreneurship based on social media discussions, including emerging business models and impact areas.",
     },
-    question2: {
-      prompt_pertanyaan:
+    pertanyaan2: {
+      pertanyaan:
         "How is the social entrepreneurship community responding to funding challenges?",
       optimal_prompt:
         "Examine discussions about funding challenges faced by social enterprises and the community's proposed solutions and strategies.",
     },
-    question3: {
-      prompt_pertanyaan:
-        "What impact metrics are most discussed for social ventures?",
+    pertanyaan3: {
+      pertanyaan: "What impact metrics are most discussed for social ventures?",
       optimal_prompt:
         "Identify and analyze the most frequently mentioned social impact measurement frameworks and metrics in the discourse.",
     },
   },
   "Topic 2": {
-    question1: {
-      prompt_pertanyaan: "How do people perceive impact investing returns?",
+    pertanyaan1: {
+      pertanyaan: "How do people perceive impact investing returns?",
       optimal_prompt:
         "Analyze public sentiment and perceptions regarding financial and social returns from impact investments based on social media data.",
     },
-    question2: {
-      prompt_pertanyaan: "What are the barriers to scaling impact investments?",
+    pertanyaan2: {
+      pertanyaan: "What are the barriers to scaling impact investments?",
       optimal_prompt:
         "Examine discussions about challenges and obstacles in scaling impact investing initiatives and proposed solutions.",
     },
-    question3: {
-      prompt_pertanyaan: "Which impact investing models show the most promise?",
+    pertanyaan3: {
+      pertanyaan: "Which impact investing models show the most promise?",
       optimal_prompt:
         "Evaluate different impact investing approaches and their effectiveness based on community discussions and sentiment analysis.",
     },
   },
   "Topic 3": {
-    question1: {
-      prompt_pertanyaan:
-        "How authentic do people find current CSR initiatives?",
+    pertanyaan1: {
+      pertanyaan: "How authentic do people find current CSR initiatives?",
       optimal_prompt:
         "Analyze public perception of corporate social responsibility initiatives, focusing on authenticity and effectiveness concerns.",
     },
-    question2: {
-      prompt_pertanyaan:
-        "What ESG practices generate the most positive discussion?",
+    pertanyaan2: {
+      pertanyaan: "What ESG practices generate the most positive discussion?",
       optimal_prompt:
         "Identify ESG (Environmental, Social, Governance) practices that receive the most positive sentiment in social media discussions.",
     },
-    question3: {
-      prompt_pertanyaan:
-        "How do consumers respond to sustainable business practices?",
+    pertanyaan3: {
+      pertanyaan: "How do consumers respond to sustainable business practices?",
       optimal_prompt:
         "Examine consumer sentiment and engagement with companies that prioritize sustainability and social responsibility.",
     },
   },
-  topic4: {
-    question1: {
-      prompt_pertanyaan:
+  "Topic 4": {
+    pertanyaan1: {
+      pertanyaan:
         "Which SDGs are getting the most attention in business discussions?",
       optimal_prompt:
         "Analyze which Sustainable Development Goals are most frequently discussed in business and social media contexts.",
     },
-    question2: {
-      prompt_pertanyaan:
-        "How do businesses view SDG implementation challenges?",
+    pertanyaan2: {
+      pertanyaan: "How do businesses view SDG implementation challenges?",
       optimal_prompt:
         "Examine business perspectives on challenges and opportunities in implementing SDG-aligned strategies.",
     },
@@ -547,14 +672,20 @@ export const DUMMY_CHATBOT_RESPONSE: ChatbotMessage = {
   isLoading: false,
   questions: [
     {
+      pertanyaan:
+        "What specific social business models are gaining the most traction?",
       prompt_pertanyaan:
         "What specific social business models are gaining the most traction?",
     },
     {
+      pertanyaan:
+        "How do investors evaluate social impact alongside financial returns?",
       prompt_pertanyaan:
         "How do investors evaluate social impact alongside financial returns?",
     },
     {
+      pertanyaan:
+        "What are the main challenges facing social enterprises in scaling their impact?",
       prompt_pertanyaan:
         "What are the main challenges facing social enterprises in scaling their impact?",
     },
